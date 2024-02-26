@@ -36,7 +36,7 @@ app.post('/api/shorturl', function(req, res) {
 app.get("/api/shorturl/:id", function(req, res) {
   const id = req.params.id
   if(!isNaN(parseInt(id))) {
-    if(parseInt(id) < shortenedArr.length) res.redirect(shortenedArr[parseInt(id) - 1])
+    if(parseInt(id) <= shortenedArr.length) res.redirect(shortenedArr[parseInt(id) - 1])
   }
 })
 
