@@ -22,15 +22,14 @@ app.get('/', function(req, res) {
 
 app.post('/api/shorturl', function(req, res) {
   const url = req.body.url;
-  const strippedUrl = url.replace("https://", "").replace("http://", "").replace("www.", "")
-  dns.lookup(strippedUrl, (err) => {
-    if(err) {
-      res.json({ error: 'invalid url' });
-    } else {
-      shortenedArr.push(url);
-      res.json({original_url : url, short_url : shortenedArr.length});
-    }
-  })
+  const isValid = /https:\/\/|http:\/\//g.test(url)
+  console.log(isValid)
+  if(!isValid) {
+    res.json({ error: 'invalid url' });
+  } else {
+    shortenedArr.push(url);
+    res.json({original_url : url, short_url : shortenedArr.length});
+  }
 })
 
 app.get("/api/shorturl/:id", function(req, res) {
